@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title %></title>
+</head>
+<body>
+    <h1><%= title %></h1>
+    <form action="/search" method="get">
+        <label for="name">Search by name:</label>
+        <input type="text" name="name" id="name">
+        <label for="email">Search by email:</label>
+        <input type="email" name="email" id="email">
+        <button type="submit">Search</button>
+    </form>
+    <ul>
+        <% users.forEach((user) => { %>
+            <li>
+                ID: <%= user.id %>, Name: <%= user.firstName %> <%= user.lastName %>, <%= user.age ? 'Age:' : '' %> <%= user.age %>
+                <a href="/<%= user.id %>/update" style="margin: 0 15px;">update</a>
+                <form action="/<%= user.id %>/delete" method="post" style="display:inline">
+                    <button type="submit" onclick="return confirm('Are you sure?')">delete</button>
+                </form>
+                <br>Email: <%= user.email %>
+                <br><%= user.bio ? 'Bio:' : '' %>  <%= user.bio %>
+            </li>
+        <% }) %>
+    </ul>
+    <a href="/create">Create a user</a>
+</body>
+</html>
